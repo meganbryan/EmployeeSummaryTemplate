@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const employeeList = []
+const employees = []
 
 const employeeQuestions = [
     { 
@@ -37,7 +37,7 @@ const employeeQuestions = [
 ]
 
 function init() {
-    console.log (employeeList)
+    console.log (employees)
     inquirer
     .prompt(
         { 
@@ -52,8 +52,7 @@ function init() {
             chooseType ();
         }
         else {
-            const renderEmployees = render(employeeList)
-            fs.writeToFile(outputPath, renderEmployees);
+            writeFile ()
         }
     })
     .catch(error => {
@@ -63,18 +62,23 @@ function init() {
     })
 }
 
+async function writeFile () {
+    let renderEmployees = render(employees)
+    fs.writeFile(outputPath, renderEmployees) = await renderEmployees;
+}
+
 function chooseType () {
     inquirer
     .prompt(employeeQuestions)
     .then((answers) => {
         if (answers.employmentType === "Manager") {
-            addManager();
+            addManager(answers);
         }
         else if (answers.employmentType === "Engineer") {
-            addEngineer();
+            addEngineer(answers);
         }
         else if (answers.employmentType === "Intern") {
-            addIntern();
+            addIntern(answers);
         }
         else {
             console.log ("error")
@@ -87,7 +91,7 @@ function chooseType () {
     })
 }
 
-function addManager () {
+function addManager (managerAnswers) {
     inquirer
     .prompt(
         {
@@ -96,9 +100,10 @@ function addManager () {
             name: 'officeNumber'
         }
     )
-    .then((answers) => {
-        const newManager = Manager (answers)
-        employeeList.push(newManager)
+    .then(async (answer) => {
+        const {name, id, email} = managerAnswers
+        let newManager = await new Manager (name, id, email, answer.officeNumber)
+        employees.push(newManager)
         init ();
     })
     .catch(error => {
@@ -108,7 +113,7 @@ function addManager () {
     })
 }
 
-function addEngineer () {
+function addEngineer (engineerAnswers) {
     inquirer
     .prompt(
         {
@@ -117,9 +122,10 @@ function addEngineer () {
             name: 'github'
         }
     )
-    .then((answers) => {
-        const newEngineer = Engineer (answers);
-        employeeList.push(newEngineer)
+    .then(async (answer) => {
+        const {name, id, email} = engineerAnswers
+        let newEngineer = await new Engineer (name, id, email, answer.github);
+        employees.push(newEngineer)
         init ();
     })
     .catch(error => {
@@ -129,7 +135,7 @@ function addEngineer () {
     })
 }
 
-function addIntern () {
+function addIntern (internAnswers) {
     inquirer
     .prompt(
         {
@@ -138,9 +144,10 @@ function addIntern () {
             name: 'school'
         }
     )
-    .then((answers) => {
-        const newIntern = Intern (answers);
-        employeeList.push(newIntern)
+    .then(async (answer) => {
+        const {name, id, email} = internAnswers
+        let newIntern = await new Intern (name, id, email, answer.school);
+        employees.push(newIntern)
         init ();
     })
     .catch(error => {
@@ -150,8 +157,6 @@ function addIntern () {
     })
 }
 
-
-// function call to initialize program
 init();
 
 // Write code to use inquirer to gather information about the development team members,
