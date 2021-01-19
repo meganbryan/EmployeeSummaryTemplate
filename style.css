@@ -1,0 +1,32 @@
+body {
+    font-family: 'Oswald', sans-serif;
+    color: white;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+.href {
+    color: white;
+}
+
+.almond {
+    background-color: blanchedalmond;
+}
+
+.cyan {
+    background-color:darkcyan;
+}
+
+.seagreen {
+    background-color: darkseagreen;
+}
+
+.grey {
+    background-color: rgb(109, 109, 109);
+}
+
+.greyText {
+    color: rgb(109, 109, 109);
+}
