@@ -63,8 +63,8 @@ function init() {
 }
 
 async function writeFile () {
-    let renderEmployees = render(employees)
-    fs.writeFile(outputPath, renderEmployees) = await renderEmployees;
+    let renderEmployees = await render(employees)
+    fs.writeFile(outputPath, renderEmployees)
 }
 
 function chooseType () {
