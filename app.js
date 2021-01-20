@@ -37,7 +37,6 @@ const employeeQuestions = [
 ]
 
 function init() {
-    console.log (employees)
     inquirer
     .prompt(
         { 
@@ -107,6 +106,7 @@ function addManager (managerAnswers) {
         const {name, id, email} = managerAnswers
         let newManager = await new Manager (name, id, email, answer.officeNumber)
         employees.push(newManager)
+        console.table (employees)
         init ();
     })
     .catch(error => {
@@ -129,6 +129,7 @@ function addEngineer (engineerAnswers) {
         const {name, id, email} = engineerAnswers
         let newEngineer = await new Engineer (name, id, email, answer.github);
         employees.push(newEngineer)
+        console.table (employees)
         init ();
     })
     .catch(error => {
@@ -151,6 +152,7 @@ function addIntern (internAnswers) {
         const {name, id, email} = internAnswers
         let newIntern = await new Intern (name, id, email, answer.school);
         employees.push(newIntern)
+        console.table (employees)
         init ();
     })
     .catch(error => {
